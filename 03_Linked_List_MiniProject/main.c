@@ -36,7 +36,7 @@ void push(Node** head_ref, int new_data)
 }
 
 /* Insert node after a specific given node */
-void insertafter(Node* prevNode ,int new_data){
+void insertafter(Node* prevNode ,int new_data, int key){
 
     /*Check if the previous Node is NULL*/
     if(prevNode==NULL){
@@ -51,10 +51,14 @@ void insertafter(Node* prevNode ,int new_data){
     /* 2. put in the data */
    new_node->data=new_data;
 
-   /*3. New Node next takes the value of the next from the previous */
+   while (prevNode->data != key)
+   /*3. Traverse the list until you found the key */
+	   prevNode=prevNode->next;
+
+   /*4. New Node next takes the value of the next from the previous */
    new_node->next=prevNode->next;
 
-   /*4.Link previous node to the new one*/
+   /*5.Link previous node to the new one*/
    prevNode->next=new_node;
 
 }
@@ -95,7 +99,7 @@ int main(){
 
 	Node *head=NULL;
 
-	int option=0,data=0;
+	int option=0,data=0,key=0;
 
 	while(1){
 		printf("1.Push\n");
@@ -105,6 +109,11 @@ int main(){
 		printf("Chose Option : \n");
 		scanf("%d",&option);
 
+		if(option==2){
+			printf("Chose key:");
+			scanf("%d",&key);
+		}
+
 		printf("Insert Data of the node : \n");
 		scanf("%d",&data);
 
@@ -113,7 +122,7 @@ int main(){
 				   traverselist(head);
 				   break;
 
-			case 2:insertafter(head,data); //to be re-thinked how pointer is going to be dinamically called.
+			case 2:insertafter(head,data,key);
 				   traverselist(head);
 				   break;
 
